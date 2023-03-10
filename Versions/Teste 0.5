@@ -1,7 +1,7 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
 <head>
-	<title>SapoClicker By ToddynArchive on Github/title>
+	<title>SapoClicker by ToddynArchive on Github</title>
 	<style>
 		#clicks {
 			color: black;
@@ -11,7 +11,7 @@
 	</style>
 </head>
 <body>
-	<h1>SapoClicker ainda não.com</h1>
+	<h1>Click on the Sapo Clicker Image</h1>
 	<img src="https://i.imgur.com/dvA8RQi.jpeg" alt="Sapo Clicker" id="frog-image" style="cursor:pointer;">
 	<div id="clicks">SapoCoins: 0</div>
 	<div id="shop">
@@ -20,14 +20,9 @@
 		<button id="autoclicker">Comprar Sapo Clicker</button>
 	</div>
 
-	<audio id="click-sound">
-		<source src="https://www.soundjay.com/button/sounds/button-7.mp3" type="audio/mpeg">
-	</audio>
-
 	<script>
 		var sapocoins = 0;
 		var autoclicker = false;
-		var clickSound = document.getElementById("click-sound");
 
 		document.getElementById("frog-image").addEventListener("click", function() {
 			if (autoclicker) {
@@ -36,7 +31,6 @@
 			else {
 				sapocoins++;
 				updateClicks();
-				clickSound.play();
 			}
 		});
 
@@ -48,7 +42,6 @@
 				updateClicks();
 				setInterval(function() {
 					document.getElementById("frog-image").click();
-					clickSound.play();
 				}, 1000);
 			}
 		});
