@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Stop Copying my code Skid</title>
+  </head>
+  <body>
+    <h1>SapoClicker:Lite</h1>
+    <p>SapoCoins: <span id="coins">0</span></p>
+    <img src="https://i.imgur.com/dvA8RQi.jpeg" id="clicker" />
+    <p>Autoclicker Level: <span id="autoclickerLevel">0</span></p>
+    <p>Autoclicker Price: <span id="autoclickerPrice">10</span></p>
+    <img src="https://i.imgur.com/cXYqSAT.jpeg" id="buyAutoclicker" />
+
+    <div id="click-notification" style="display:none;background-color:green;color:white;padding:5px;position:fixed;bottom:20px;right:20px;border-radius:5px;"></div>
+
+    <script>
+      let numCoins = 0;
+      let autoclickerLevel = 0;
+      let autoclickerPrice = 10;
+
+      const coinsText = document.getElementById("coins");
+      const clickerImage = document.getElementById("clicker");
+      const autoclickerLevelText = document.getElementById("autoclickerLevel");
+      const autoclickerPriceText = document.getElementById("autoclickerPrice");
+      const buyAutoclickerImage = document.getElementById("buyAutoclicker");
+      const clickNotification = document.getElementById("click-notification");
+
+      // Load saved data on page load
+      window.addEventListener("load", () => {
+        if (localStorage.getItem("numCoins")) {
+          numCoins = parseInt(localStorage.getItem("numCoins"));
+          autoclickerLevel = parseInt(localStorage.getItem("autoclickerLevel"));
+          autoclickerPrice = parseInt(localStorage.getItem("autoclickerPrice"));
+          coinsText.innerText = numCoins;
+          autoclickerLevelText.innerText = autoclickerLevel;
+          autoclickerPriceText.innerText = autoclickerPrice;
+        }
+      });
+
+      // Save game data on every change
+      const saveGame = () => {
+        localStorage.setItem("numCoins", numCoins);
+        localStorage.setItem("autoclickerLevel", autoclickerLevel);
+        localStorage.setItem("autoclickerPrice", autoclickerPrice);
+      };
+
+      // Show click notification
+      const showClickNotification = (numClicks) => {
+        clickNotification.innerText = "+" + numClicks;
+        clickNotification.style.display = "block";
+        setTimeout(() => {
+          clickNotification.style.display = "none";
+        }, 1000);
+      };
+
+      clickerImage.addEventListener("click", () => {
+        numCoins += (1 + autoclickerLevel);
+        coinsText.innerText = numCoins;
+        saveGame();
+        showClickNotification(1 + autoclickerLevel);
+      });
+
+      buyAutoclickerImage.addEventListener("click", () => {
+        if (numCoins >= autoclickerPrice) {
+          numCoins -= autoclickerPrice;
+          autoclickerLevel++;
+          autoclickerPrice *= 2;
+          autoclickerLevelText.innerText = autoclickerLevel;
+          autoclickerPriceText.innerText = autoclickerPrice;
+          coinsText.innerText = numCoins;
+          saveGame();
+        }
+      });
+
+      setInterval(() => {
+        numCoins += autoclickerLevel;
+        coinsText.innerText = numCoins;
+        saveGame();
+      }, 1000);
+    </script>
+  </body>
+</html>
