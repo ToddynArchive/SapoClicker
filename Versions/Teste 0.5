@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SapoClicker By badrar/title>
+	<style>
+		#clicks {
+			color: black;
+			font-size: 24px;
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+	<h1>SapoClicker ainda não.com</h1>
+	<img src="https://i.imgur.com/dvA8RQi.jpeg" alt="Sapo Clicker" id="frog-image" style="cursor:pointer;">
+	<div id="clicks">SapoCoins: 0</div>
+	<div id="shop">
+		<h2>Loja</h2>
+		<p>Comprar Sapo Clicker: 15 SapoCoins</p>
+		<button id="autoclicker">Comprar Sapo Clicker</button>
+	</div>
+
+	<audio id="click-sound">
+		<source src="https://www.soundjay.com/button/sounds/button-7.mp3" type="audio/mpeg">
+	</audio>
+
+	<script>
+		var sapocoins = 0;
+		var autoclicker = false;
+		var clickSound = document.getElementById("click-sound");
+
+		document.getElementById("frog-image").addEventListener("click", function() {
+			if (autoclicker) {
+				document.getElementById("frog-image").click();
+			}
+			else {
+				sapocoins++;
+				updateClicks();
+				clickSound.play();
+			}
+		});
+
+		document.getElementById("autoclicker").addEventListener("click", function() {
+			if (sapocoins >= 15 && !autoclicker) {
+				sapocoins -= 15;
+				autoclicker = true;
+				document.getElementById("autoclicker").innerHTML = "Sapo Clicker (Ativado)";
+				updateClicks();
+				setInterval(function() {
+					document.getElementById("frog-image").click();
+					clickSound.play();
+				}, 1000);
+			}
+		});
+
+		function updateClicks() {
+			document.getElementById("clicks").innerHTML = "SapoCoins: " + sapocoins;
+		}
+	</script>
+</body>
+</html>
